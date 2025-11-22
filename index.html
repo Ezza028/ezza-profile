@@ -18,6 +18,40 @@
       --hero-slide-duration:600ms; /* FAST slide */
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
+    
+    @media (max-width:520px){
+      nav{
+        overflow-x:auto;
+        white-space:nowrap;
+        scrollbar-width:none; /* Firefox hide scrollbar */
+      }
+      nav::-webkit-scrollbar{
+        display:none; /* Chrome hide scrollbar */
+      }
+      nav a{
+        flex-shrink:0;
+        padding:6px 10px;
+        font-size:13px;
+        margin-right:6px;
+      }
+      .cta{
+        flex-shrink:0;
+        padding:6px 12px;
+        font-size:13px;
+      }
+    
+      .header{
+        gap:6px;
+        padding:10px 14px;
+      }
+    
+      .brand{
+        font-size:15px;
+        margin-right:4px;
+        white-space:nowrap;
+      }
+    }
+
 
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{
