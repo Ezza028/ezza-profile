@@ -27,16 +27,23 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    body.locked-scroll { 
-      overflow:hidden !important;
+    /* ===== SCROLL FIX FOR MOBILE ===== */
+    body.locked-scroll {
+      overflow-x: hidden !important;   /* horizontal tetap off */
     }
+
+    main.locked {
+      height: 130vh;
+      overflow: hidden;
+    }
+
 
     body.page-visible { 
       overflow:auto !important;
     }
 
     body { 
-      opacity:0; 
+      opacity:1; 
       transition: opacity .45s ease-in; 
     }
 
