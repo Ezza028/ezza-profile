@@ -454,14 +454,7 @@
       main.locked {
         max-height: calc(100vh + 80px) !important;  /* tambah ruang sedikit */
         overflow-y: auto !important;                /* boleh scroll sedikit */
-        overflow-x: hidden !important;
       }
-    
-      body.locked-scroll {
-        overflow-y: hidden !important;              /* tetap tidak scroll body */
-      }
-    }
-
 
   </style>
 </head>
@@ -812,6 +805,19 @@
     btn.addEventListener('mouseup', ()=> btn.style.transform = '');
     btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
   });
+
+  // ===== ALLOW PARTIAL SCROLL ON MOBILE BEFORE READ BUTTON PRESSED =====
+  document.addEventListener("DOMContentLoaded", () => {
+    const main = document.querySelector("main");
+  
+    // Allow small scroll on mobile BEFORE Read My Story clicked
+    if (window.innerWidth <= 620) {
+      main.classList.remove("locked");       // unlock main scroll
+      document.body.classList.remove("locked-scroll");
+      document.body.classList.add("page-visible");
+    }
+  });
+
 
   // Read My Full Story — FAST slide + scroll + reveal
   (function(){
