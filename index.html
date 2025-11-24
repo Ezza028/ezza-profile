@@ -359,18 +359,18 @@
       section{ padding:28px 0 }
 
       h1{
-      font-weight: 800;
-    }
+          font-weight: 800;
+        }
 
-    .section-title{
-      font-weight: 800;
-    }
+        .section-title{
+          font-weight: 800;
+        }
 
-    nav a{
-      font-weight: 600;
-    }
+        nav a{
+          font-weight: 600;
+        }
 
-    }
+      }
 
     main.unlocked {
       padding-top: 30px !important;
@@ -451,6 +451,60 @@
       transform: scale(0.88);
       filter: drop-shadow(0 0 3px rgba(168, 50, 63, 0.2));
     }
+
+   /* ===== MOBILE FONT AUTO SCALE ===== */
+    @media (max-width: 520px) {
+      
+      /* Heading utama */
+      h1 {
+        font-size: 28px !important;
+        line-height: 1.15;
+      }
+
+      /* Subheading section */
+      .section-title {
+        font-size: 20px !important;
+      }
+
+      /* Lead paragraf di hero */
+      .lead {
+        font-size: 14.5px !important;
+        line-height: 1.7;
+      }
+
+      /* Paragraph umum */
+      p {
+        font-size: 14px !important;
+      }
+
+      /* Card text */
+      .card {
+        font-size: 14.5px !important;
+        line-height: 1.65;
+      }
+
+      /* Navbar text */
+      nav a {
+        font-size: 14px !important;
+      }
+
+      /* Button */
+      .btn,
+      .btn-primary,
+      .btn-ghost {
+        font-size: 14px !important;
+        padding: 10px 14px;
+      }
+
+      /* Form inputs */
+      #contact input,
+      #contact textarea,
+      #contact button {
+        font-size: 14px !important;
+      }
+
+    }
+ 
 
 
   </style>
