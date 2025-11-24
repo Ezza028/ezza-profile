@@ -523,3 +523,9 @@
         border-radius: 14px;
       }
     }
+
+    @media (max-width: 480px) {
+        .logo-svg {
+          width: 240px;   /* gede, tapi masih elegan */
+        }
+      }
