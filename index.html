@@ -800,52 +800,6 @@
     btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
   });
 
-  // === HERO MOBILE PARTIAL SCROLL (ONLY UNTIL READ BUTTON VISIBLE) ===
-document.addEventListener("DOMContentLoaded", () => {
-  const main = document.querySelector("main");
-  const hero = document.querySelector(".hero");
-  const actions = document.getElementById("heroActions");
-
-  if (window.innerWidth <= 620) {
-    document.body.classList.add("locked-scroll");
-
-    main.classList.add("locked");
-    main.style.overflowY = "auto";
-    main.style.maxHeight = "100vh";
-
-    const allowScroll = actions.offsetTop - 140;
-
-    main.addEventListener("scroll", () => {
-      if (main.scrollTop > allowScroll) {
-        main.scrollTop = allowScroll;
-      }
-    });
-  }
-});
-
-// === AFTER CLICK READ STORY, UNLOCK EVERYTHING ===
-readBtn.addEventListener("click", () => {
-  hero.classList.add("hero--slid");
-
-  setTimeout(() => {
-    main.classList.remove("locked");
-    main.style.maxHeight = "";
-    main.style.overflowY = "";
-
-    document.body.classList.remove("locked-scroll");
-
-    nav.classList.add("enabled");
-    nav.setAttribute("aria-hidden", "false");
-
-    document.querySelectorAll(".content-section")
-      .forEach((sec, i) => setTimeout(() => sec.classList.add("slide-up"), 90 + i * 80));
-
-    const top = hero.offsetHeight - 120;
-    window.scrollTo({ top, behavior: "smooth" });
-  }, 280);
-});
-
-
   // Read My Full Story — FAST slide + scroll + reveal
   (function(){
     const readBtn = document.getElementById('readStory');
@@ -874,7 +828,7 @@ readBtn.addEventListener("click", () => {
       // Scroll sedikit supaya about mulai kelihatan
       setTimeout(() => {
         window.scrollTo({
-          top: hero.offsetHeight - 160,
+          top: hero.offsetHeight - 120,
           behavior: "smooth"
         });
         readBtn.disabled = false;
