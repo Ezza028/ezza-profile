@@ -526,6 +526,6 @@
 
     @media (max-width: 480px) {
         .logo-svg {
-          width: 240px;   /* gede, tapi masih elegan */
+          width: 100px;   /* gede, tapi masih elegan */
         }
       }
