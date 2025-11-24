@@ -310,52 +310,67 @@
     let mobilePartialLock = false;
     let maxAllowedScroll = 0;
 
-    // Utility: compute allowed mobile scroll so Read button is visible but not beyond
+    
     // === HERO MOBILE PARTIAL SCROLL (ONLY UNTIL READ BUTTON VISIBLE) ===
-    document.addEventListener("DOMContentLoaded", () => {
-      const main = document.querySelector("main");
-      const hero = document.querySelector(".hero");
-      const actions = document.getElementById("heroActions");
-    
-      if (window.innerWidth <= 620) {
-        document.body.classList.add("locked-scroll");
-    
-        main.classList.add("locked");
-        main.style.overflowY = "auto";
-        main.style.maxHeight = "100vh";
-    
-        const allowScroll = actions.offsetTop - 140;
-    
-        main.addEventListener("scroll", () => {
-          if (main.scrollTop > allowScroll) {
-            main.scrollTop = allowScroll;
-          }
-        });
+document.addEventListener("DOMContentLoaded", () => {
+  const main = document.querySelector("main");
+  const hero = document.querySelector(".hero");
+  const actions = document.getElementById("heroActions");
+
+  if (window.innerWidth <= 620) {
+    document.body.classList.add("locked-scroll");
+
+    main.classList.add("locked");
+    main.style.overflowY = "auto";
+    main.style.maxHeight = "100vh";
+
+    const allowScroll = actions.offsetTop - 140;
+
+    main.addEventListener("scroll", () => {
+      if (main.scrollTop > allowScroll) {
+        main.scrollTop = allowScroll;
       }
     });
-    
-    // === AFTER CLICK READ STORY, UNLOCK EVERYTHING ===
-    readBtn.addEventListener("click", () => {
-      hero.classList.add("hero--slid");
-    
-      setTimeout(() => {
-        main.classList.remove("locked");
-        main.style.maxHeight = "";
-        main.style.overflowY = "";
-    
-        document.body.classList.remove("locked-scroll");
-    
-        nav.classList.add("enabled");
-        nav.setAttribute("aria-hidden", "false");
-    
-        document.querySelectorAll(".content-section")
-          .forEach((sec, i) => setTimeout(() => sec.classList.add("slide-up"), 90 + i * 80));
-    
-        const top = hero.offsetHeight - 120;
-        window.scrollTo({ top, behavior: "smooth" });
-      }, 280);
-    });
+  }
+});
 
+// === AFTER CLICK READ STORY, UNLOCK EVERYTHING ===
+readBtn.addEventListener("click", () => {
+  hero.classList.add("hero--slid");
+
+  setTimeout(() => {
+    main.classList.remove("locked");
+    main.style.maxHeight = "";
+    main.style.overflowY = "";
+
+    document.body.classList.remove("locked-scroll");
+
+    nav.classList.add("enabled");
+    nav.setAttribute("aria-hidden", "false");
+
+    document.querySelectorAll(".content-section")
+      .forEach((sec, i) => setTimeout(() => sec.classList.add("slide-up"), 90 + i * 80));
+
+    const top = hero.offsetHeight - 120;
+    window.scrollTo({ top, behavior: "smooth" });
+  }, 280);
+});
+
+
+    // Read button behavior: slide hero up, unlock everything
+    readBtn.addEventListener('click', function(){
+      readBtn.disabled = true;
+      hero.classList.add('hero--slid');
+
+      // small timeout to allow slide animation
+      setTimeout(() => {
+        disableMobileLockCompletely();
+        // nice scroll so About is visible
+        const top = hero.offsetHeight - 120;
+        window.scrollTo({ top, behavior: 'smooth' });
+        readBtn.disabled = false;
+      }, 260);
+    });
 
     // Intersection reveal observer for little fade-ins
     const revealObserver = new IntersectionObserver((entries)=>{
@@ -366,6 +381,17 @@
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      initMobileBehavior();
+
+      // ensure hero image visible smoothly
+      const img = document.querySelector('.hero-card img');
+      if(img && !img.complete){
+        img.style.opacity = 0;
+        img.addEventListener('load', ()=> img.style.opacity = 1);
+      }
+    });
 
     // Accessibility: allow keyboard to focus main
     document.addEventListener('keydown', (e) => {
