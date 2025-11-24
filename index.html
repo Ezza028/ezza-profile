@@ -311,87 +311,51 @@
     let maxAllowedScroll = 0;
 
     // Utility: compute allowed mobile scroll so Read button is visible but not beyond
-    function computeAllowedMobileScroll(){
-      // distance from top of main to bottom of heroActions (so actions visible)
-      const mainRect = main.getBoundingClientRect();
-      const heroRect = hero.getBoundingClientRect();
-      const actionsRect = heroActions.getBoundingClientRect();
-
-      // amount we can scroll inside main so that the bottom of viewport reveals actions.
-      // We want to allow scrolling until actions are at ~120px from top of viewport (so visible)
-      const viewportH = window.innerHeight;
-      // current hero total height relative to document
-      const heroHeight = hero.offsetHeight;
-      // maximum scrollTop inside main to reveal actions: heroHeight - viewportH + 140
-      const allowed = Math.max(0, heroHeight - viewportH + 140);
-      return allowed;
-    }
-
-    function enableMobilePartialLock(){
-      mobilePartialLock = true;
-      main.classList.add('locked'); // keep class for styling if any
-      main.style.overflowY = 'auto';
-      main.style.maxHeight = 'calc(100vh + 120px)';
-      main.scrollTop = 0;
-      maxAllowedScroll = computeAllowedMobileScroll();
-      // clamp initially
-      if(main.scrollTop > maxAllowedScroll) main.scrollTop = maxAllowedScroll;
-    }
-
-    function disableMobileLockCompletely(){
-      mobilePartialLock = false;
-      main.classList.remove('locked');
-      main.style.overflowY = '';
-      main.style.maxHeight = '';
-      document.body.classList.remove('locked-scroll');
-      nav.classList.add('enabled');
-      nav.setAttribute('aria-hidden','false');
-
-      // reveal sections with stagger
-      document.querySelectorAll('.content-section').forEach((sec, i) => {
-        setTimeout(()=> sec.classList.add('slide-up'), 120 + i * 90);
-      });
-    }
-
-    // On load: if mobile width, enable partial lock that allows only limited scroll
-    function initMobileBehavior(){
-      if(window.innerWidth <= 620){
-        // allow small scroll so user can reach the Read button, but clamp
-        enableMobilePartialLock();
-
-        // intercept wheel/touchmove to clamp scrolling
-        main.addEventListener('scroll', () => {
-          if(!mobilePartialLock) return;
-          if(main.scrollTop > maxAllowedScroll){
-            main.scrollTop = maxAllowedScroll;
+    // === HERO MOBILE PARTIAL SCROLL (ONLY UNTIL READ BUTTON VISIBLE) ===
+    document.addEventListener("DOMContentLoaded", () => {
+      const main = document.querySelector("main");
+      const hero = document.querySelector(".hero");
+      const actions = document.getElementById("heroActions");
+    
+      if (window.innerWidth <= 620) {
+        document.body.classList.add("locked-scroll");
+    
+        main.classList.add("locked");
+        main.style.overflowY = "auto";
+        main.style.maxHeight = "100vh";
+    
+        const allowScroll = actions.offsetTop - 140;
+    
+        main.addEventListener("scroll", () => {
+          if (main.scrollTop > allowScroll) {
+            main.scrollTop = allowScroll;
           }
-        }, { passive: true });
-
-        // on orientation/resize, recompute allowed
-        window.addEventListener('resize', () => {
-          if(mobilePartialLock) maxAllowedScroll = computeAllowedMobileScroll();
         });
-      } else {
-        // non-mobile: allow usual behavior but keep page initially locked (hidden sections)
-        nav.classList.add('enabled');
-        nav.setAttribute('aria-hidden','false');
       }
-    }
-
-    // Read button behavior: slide hero up, unlock everything
-    readBtn.addEventListener('click', function(){
-      readBtn.disabled = true;
-      hero.classList.add('hero--slid');
-
-      // small timeout to allow slide animation
-      setTimeout(() => {
-        disableMobileLockCompletely();
-        // nice scroll so About is visible
-        const top = hero.offsetHeight - 120;
-        window.scrollTo({ top, behavior: 'smooth' });
-        readBtn.disabled = false;
-      }, 260);
     });
+    
+    // === AFTER CLICK READ STORY, UNLOCK EVERYTHING ===
+    readBtn.addEventListener("click", () => {
+      hero.classList.add("hero--slid");
+    
+      setTimeout(() => {
+        main.classList.remove("locked");
+        main.style.maxHeight = "";
+        main.style.overflowY = "";
+    
+        document.body.classList.remove("locked-scroll");
+    
+        nav.classList.add("enabled");
+        nav.setAttribute("aria-hidden", "false");
+    
+        document.querySelectorAll(".content-section")
+          .forEach((sec, i) => setTimeout(() => sec.classList.add("slide-up"), 90 + i * 80));
+    
+        const top = hero.offsetHeight - 120;
+        window.scrollTo({ top, behavior: "smooth" });
+      }, 280);
+    });
+
 
     // Intersection reveal observer for little fade-ins
     const revealObserver = new IntersectionObserver((entries)=>{
@@ -402,17 +366,6 @@
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Init
-    document.addEventListener('DOMContentLoaded', () => {
-      initMobileBehavior();
-
-      // ensure hero image visible smoothly
-      const img = document.querySelector('.hero-card img');
-      if(img && !img.complete){
-        img.style.opacity = 0;
-        img.addEventListener('load', ()=> img.style.opacity = 1);
-      }
-    });
 
     // Accessibility: allow keyboard to focus main
     document.addEventListener('keydown', (e) => {
