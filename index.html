@@ -505,6 +505,30 @@
 
     }
  
+    /* ===== HERO IMAGE AUTO SCALE ON MOBILE ===== */
+    @media (max-width: 520px) {
+    
+      .hero-right {
+        height: auto;
+        display: flex;
+        justify-content: center;
+      }
+    
+      .hero-card {
+        width: 78vw !important;      /* otomatis kecil */
+        height: 78vw !important;     /* tetap square */
+        max-width: 300px !important;
+        max-height: 300px !important;
+        border-radius: 14px !important;
+      }
+    
+      .hero-card img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        border-radius: 14px;
+      }
+    }
 
 
   </style>
