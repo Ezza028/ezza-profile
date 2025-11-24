@@ -523,3 +523,32 @@
         border-radius: 14px;
       }
     }
+
+    /* ===== FIX SPASI ATAS MOBILE ===== */
+    @media (max-width: 520px) {
+    
+      /* Header lebih rapat ke atas */
+      .header-wrap {
+        top: 0 !important;
+      }
+    
+      .header {
+        margin: 6px !important;
+        padding: 6px 10px !important;
+      }
+    
+      /* Section pertama jangan turun jauh */
+      .wrap {
+        margin-top: 40px !important;   /* sebelumnya ±90px */
+      }
+    
+      /* Hero tidak perlu min-height tinggi */
+      .hero {
+        min-height: auto !important;
+        padding-top: 10px !important;
+      }
+    
+      .hero-right {
+        padding-top: 10px !important;
+      }
+    }
