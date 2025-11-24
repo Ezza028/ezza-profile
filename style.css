@@ -523,9 +523,20 @@
         border-radius: 14px;
       }
     }
+    .logo-svg {
+      width: 150px;
+      height: auto;
+    }
 
     @media (max-width: 480px) {
-        .logo-svg {
-          width: 100px;   /* gede, tapi masih elegan */
-        }
+      .logo-svg {
+        width: 200px;      /* lebih besar di HP */
       }
+    }
+
+
+    @media (max-width: 480px) {
+    .logo-svg {
+      width: 100px;   /* gede, tapi masih elegan */
+    }
+  }
