@@ -449,20 +449,19 @@
       filter: drop-shadow(0 0 3px rgba(168, 50, 63, 0.2));
     }
 
-    /* ==== FIX MOBILE: allow scroll on hero lock ==== */
+    /* === MOBILE: allow slight scroll only for Read My Full Story === */
     @media (max-width: 620px) {
       main.locked {
-        max-height: 110vh !important;
-        overflow-y: auto !important;
+        max-height: calc(100vh + 80px) !important;  /* tambah ruang sedikit */
+        overflow-y: auto !important;                /* boleh scroll sedikit */
         overflow-x: hidden !important;
-        padding-bottom: 30px;
       }
     
       body.locked-scroll {
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
+        overflow-y: hidden !important;              /* tetap tidak scroll body */
       }
     }
+
 
   </style>
 </head>
