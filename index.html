@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ezza Ezzata — Portfolio (Dark Elegant)</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
     :root{
       --bg:#0f0f0f;
       --text:#e6e6e6;
@@ -18,35 +17,161 @@
       --accent:#a8323f;
       --max-width:1200px;
       --header-height:86px;
-      --hero-slide-duration:600ms;
-      font-family: 'Montserrat', system-ui, sans-serif;
-      --base-font: 18px;
+      --hero-slide-duration:600ms; /* FAST slide */
+       font-family: 'Montserrat', system-ui, sans-serif;
+      --base-font: 20px;
     }
 
-    /* Reset + base */
+    /* ===== GLOBAL BOLD STYLE ===== */
+
+    /* Default semua teks sedikit lebih tebal */
+    body, * {
+      font-weight: 560;
+    }
+
+    /* Heading tebal banget */
+    h1, h2, h3, h4, .section-title {
+      font-weight: 800 !important;
+    }
+
+    /* Navbar */
+    nav a {
+      font-weight: 650 !important;
+    }
+
+    /* Buttons */
+    .btn, .btn-primary, .btn-ghost {
+      font-weight: 750 !important;
+    }
+
+    /* Card Titles */
+    .card h3 {
+      font-weight: 750 !important;
+    }
+
+    /* Card Text & lead paragraph */
+    .card p,
+    .lead {
+      font-weight: 550 !important;
+    }
+
+    /* Biodata value */
+    .bio-val {
+      font-weight: 750 !important;
+    }
+
+    /* Form text */
+    input, textarea, button {
+      font-weight: 600 !important;
+    }
+
+
+    /* ============== MOBILE NAV IMPROVEMENT ============== */
+
+      @media (max-width: 620px) {
+
+        nav {
+          display: none; /* default hidden */
+          flex-direction: column;
+          gap: 12px;
+          background: rgba(15,15,15,0.95);
+          padding: 18px;
+          border-radius: 12px;
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 12px;
+          width: 70%;
+          border: 1px solid rgba(255,255,255,0.05);
+          backdrop-filter: blur(8px);
+          opacity: 0;
+          transform: translateY(-8px);
+          transition: all .25s ease;
+        }
+
+        nav.open {
+          display: flex;
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Burger button */
+        .burger {
+          width: 28px;
+          height: 22px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          cursor: pointer;
+        }
+
+        .burger span {
+          display: block;
+          height: 3px;
+          width: 100%;
+          background: var(--wine-light);
+          border-radius: 3px;
+          transition: .25s;
+        }
+
+        /* Animate burger when open */
+        .burger.open span:nth-child(1) {
+          transform: translateY(9px) rotate(45deg);
+        }
+        .burger.open span:nth-child(2) {
+          opacity: 0;
+        }
+        .burger.open span:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Hide desktop nav */
+        .header nav {
+          position: absolute;
+        }
+      }
+
+
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
+    html,body{
       background:var(--bg);
       color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      font-size:var(--base-font);
-      line-height:1.6;
-      transition:opacity .35s ease;
-      opacity:0;
     }
+
+    body {
+      font-size: var(--base-font);
+    }
+
+
+    /* ===== SCROLL FIX FOR MOBILE ===== */
+    body.locked-scroll {
+      overflow-x: hidden !important;   /* horizontal tetap off */
+    }
+
+    main.locked {
+      height: 105vh;
+      overflow: hidden;
+    }
+
+
+    body.page-visible { 
+      overflow:auto !important;
+    }
+
+    body { 
+      opacity:1; 
+      transition: opacity .45s ease-in; 
+    }
+
+
     a{color:inherit;text-decoration:none}
 
-    /* Global boldness / sizing */
-    body, * { font-weight: 550; }
-    h1,h2,h3,.section-title { font-weight:800 }
-    nav a { font-weight:650 }
-    .btn, .btn-primary, .btn-ghost { font-weight:750 }
-    .bio-val, .card h3 { font-weight:700 }
-    .lead, .card p { font-weight:550 }
 
-    /* Layout */
+    /* initial fade */
+    body { opacity:0; transition: opacity .45s ease-in; }
+
+    /* layout */
     .header-wrap{
       position:fixed; inset:0 0 auto 0; z-index:9999; display:flex; justify-content:center; pointer-events:none;
     }
@@ -65,7 +190,7 @@
       color:var(--muted);
       padding:8px 10px;border-radius:8px;font-size:14px;
       transition: transform .12s ease, color .12s ease, background .14s ease;
-      pointer-events:none; opacity:0.45;
+      pointer-events:none; opacity:0.45; user-select:none;
     }
     nav.enabled a{ pointer-events:auto; opacity:1; }
     nav a:hover{ transform: translateY(-3px); color:#fff; background:rgba(168,50,63,0.08) }
@@ -81,86 +206,140 @@
       position:relative;
     }
 
-    /* HERO */
-    .hero-wrap{ overflow:visible; position:relative; }
-    .hero{
-      display:grid; grid-template-columns:1fr 380px; gap:36px; align-items:center;
-      padding:28px 8px; border-radius:12px; min-height:calc(100vh - 160px);
-      transition: transform var(--hero-slide-duration) cubic-bezier(.2,.9,.26,1),
-                  opacity calc(var(--hero-slide-duration) / 1.6) ease;
-      will-change: transform, opacity; z-index:2;
-      background:transparent;
+    /* HERO WRAPPER: used to animate hero sliding away */
+    .hero-wrap{
+      overflow:visible; /* allow hero to translate out */
+      position:relative;
     }
-    @media(max-width:1100px){ .hero{ grid-template-columns:1fr 320px } }
+
+    .hero{
+      display:grid; grid-template-columns:1fr 520px; gap:48px; align-items:center; padding:28px 8px; border-radius:12px;
+      min-height:calc(100vh - 160px);
+      background:transparent;
+      transition: transform var(--hero-slide-duration) cubic-bezier(.2,.9,.26,1), opacity calc(var(--hero-slide-duration) / 1.6) ease;
+      will-change: transform, opacity;
+      z-index:2;
+    }
+
+    @media(max-width:1100px){ .hero{ grid-template-columns:1fr 420px } }
     @media(max-width:880px){ .hero{ grid-template-columns:1fr } .hero-right{ order:-1; margin-top:18px } }
 
     .kicker{ display:inline-block; padding:8px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.04); color:var(--muted); font-weight:600; margin-bottom:18px }
-    h1{ font-size:56px; line-height:1.03; margin:0 0 8px; letter-spacing:-1px }
+    h1{ font-size:56px; line-height:1.03; margin:0 0 8px; font-weight:800; letter-spacing:-1px }
     h1 .name{ color:var(--wine-light) }
-    .lead{ color:var(--muted); max-width:680px; margin-top:12px }
+    .lead{ color:var(--muted); max-width:680px; line-height:1.72; margin-top:12px }
 
     .actions{ margin-top:26px; display:flex; gap:14px; flex-wrap:wrap }
 
+    /* Buttons */
     .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 18px; border-radius:12px; cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 18px; border-radius:12px; font-weight:700; cursor:pointer;
       transition: transform .12s ease, box-shadow .18s ease, opacity .12s ease;
+      will-change: transform, box-shadow;
       border:1px solid rgba(255,255,255,0.06);
       background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       color:var(--text);
     }
+
     .btn-primary {
       background: linear-gradient(90deg, var(--wine-light), var(--wine));
       color: #fff;
       box-shadow: 0 12px 36px rgba(168,50,63,0.12);
       border: 1px solid rgba(255,255,255,0.04);
-      position:relative; overflow:visible;
+      position:relative;
+      overflow:visible;
     }
-    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid rgba(255,255,255,0.06); }
+    .btn-primary::after{
+      content:""; position:absolute; inset:-6px; border-radius:14px; filter:blur(10px); opacity:0; transition: opacity .35s ease; box-shadow: 0 0 30px 6px rgba(168,50,63,0.08); pointer-events:none;
+    }
+    .btn-primary:hover::after{ opacity:1; animation: glowPulse 2s infinite ease-in-out; }
+    @keyframes glowPulse { 0%{box-shadow:0 0 12px 2px rgba(168,50,63,0.06);}50%{box-shadow:0 0 34px 10px rgba(168,50,63,0.12);}100%{box-shadow:0 0 12px 2px rgba(168,50,63,0.06);} }
 
-    .hero-right{ position:relative; height:380px; display:flex; align-items:center; justify-content:center; }
-    .hero-card{ width:100%; max-width:380px; height:380px; border-radius:18px; overflow:hidden; position:relative; box-shadow:0 30px 60px rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.05); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid rgba(255,255,255,0.06); }
+    .btn-ghost:hover { color:#fff; transform:translateY(-3px); box-shadow:0 10px 30px rgba(168,50,63,0.04) }
+
+    .card button[type="submit"] {
+      background: linear-gradient(90deg, var(--wine-light), var(--wine));
+      color:#fff; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+      transition: box-shadow .18s ease, transform .12s ease;
+      box-shadow: 0 8px 24px rgba(168,50,63,0.08);
+    }
+    .card button[type="submit"]:hover { box-shadow: 0 10px 36px rgba(168,50,63,0.14); transform: translateY(-3px); }
+
+    .hero-right{ 
+      position:relative; 
+      height:380px; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center;
+    }
+
+    .hero-card{ 
+      width:100%; 
+      max-width:380px; 
+      height:380px; 
+      border-radius:18px; 
+      overflow:hidden; 
+      position:relative; 
+      box-shadow:0 30px 60px rgba(0,0,0,0.55); 
+      border:1px solid rgba(255,255,255,0.05); 
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); 
+    }
+
     .hero-card img{ width:100%; height:100%; object-fit:cover; display:block }
 
-    /* sections */
+    /* content sections */
     section{ padding:40px 0 }
-    .section-title{ font-size:20px; color:var(--wine-light); margin-bottom:14px; font-weight:700; }
+    .section-title{ font-size:20px; color:var(--wine-light); margin-bottom:14px; font-weight:700; text-align:left }
     .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start }
     @media(max-width:880px){ .two-col{ grid-template-columns:1fr } }
 
     .card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.04); box-shadow:0 8px 30px rgba(0,0,0,0.45); }
     .micro{ font-family:monospace; color:var(--muted); font-size:12px; margin-bottom:8px }
     .bio-item{ display:flex; gap:12px; align-items:center; margin-bottom:12px }
+    .bio-item svg{ width:22px; height:22px; flex-shrink:0 }
     .bio-key{ display:block; color:var(--muted); font-size:12px }
-    .bio-val{ display:block; font-size:14px; color:#fff; margin-top:2px }
+    .bio-val{ display:block; font-size:14px; font-weight:600; color:#fff; margin-top:2px }
 
-    /* reveal & slide */
-    .reveal{ opacity:0; transform: translateY(18px); transition: all .6s cubic-bezier(.2,.9,.26,1) }
-    .reveal.visible{ opacity:1; transform:none }
-    .content-section{ opacity:0; transform:translateY(120px); transition: opacity .65s ease, transform .65s ease; }
-    .content-section.slide-up{ opacity:1; transform:none; }
-    .hero--slid{ transform: translateY(-60px); transition: transform var(--hero-slide-duration) cubic-bezier(.2,.9,.26,1); }
+    /* ===== CONTACT FIX ===== */
 
-    /* social icons animation */
-    .seen-logos { display:flex; gap:18px; align-items:center; opacity:.95 }
-    .seen-logos a{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:10px; transition: transform .18s ease, box-shadow .18s ease; }
-    .seen-logos a:hover{ transform: translateY(-6px) scale(1.12); box-shadow: 0 10px 30px rgba(168,50,63,0.12); }
-    .seen-logos a:active{ transform: scale(.92); box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    /* Bungkus card contact agar berada di tengah */
+    #contact .card {
+      max-width: 480px;       /* tidak melebar ke samping */
+      margin: 0 auto;         /* center */
+      padding: 24px 22px;
+    }
 
-    /* contact tweaks */
-    #contact .card { max-width:480px; margin:0 auto; padding:24px 22px }
-    #contact input, #contact textarea { font-size:16px; padding:12px; border-radius:12px; background:#161616; border:1px solid rgba(255,255,255,0.07); color:#fff }
+    /* Input & Textarea lebih besar dan lebih nyaman di mobile */
+    #contact input,
+    #contact textarea {
+      font-size: 16px;        /* perbesar tulisan */
+      padding: 14px;          /* lebih lega */
+      border-radius: 12px;
+    }
+
+    /* Perbesar tombol */
+    #contact button {
+      font-size: 16px;
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+
+    /* Judul contact tetap rapi di tengah */
+    #contact-title {
+      text-align: center;
+    }
 
     footer{ margin-top:40px; color:var(--muted); text-align:center; padding:30px 8px; font-size:13px }
 
-    /* typography tweaks for large screens */
-    h1{ font-size:64px }
-    .lead{ font-size:18px }
-    .section-title{ font-size:24px }
-    .card{ font-size:16px; line-height:1.7 }
+    /* reveal helper */
+    .reveal{ opacity:0; transform:translateY(18px); transition: all .6s cubic-bezier(.2,.9,.26,1) }
+    .reveal.visible{ opacity:1; transform:none }
 
-    /* MOBILE RESPONSIVE */
-    @media (max-width:620px){
+    /* mobile tweaks */
+    @media (max-width:520px) {
       .header{ padding:10px 14px }
+      nav{ gap:8px }
       .brand{ font-size:16px }
       .wrap{ padding:16px; margin-top:calc(var(--header-height) + 40px) }
       .hero{ grid-template-columns:1fr; gap:20px; min-height:auto }
@@ -168,27 +347,128 @@
       .hero-card{ height:320px; border-radius:14px }
       h1{ font-size:28px }
       .lead{ font-size:14px }
-      .section-title{ font-size:20px }
+      .btn-primary{ padding:12px 16px }
+      .contact-grid{ grid-template-columns:1fr }
+      section{ padding:28px 0 }
 
-      /* hide desktop nav by placing absolute */
-      nav { position: absolute; right: 14px; top: 14px; }
+      h1{
+      font-weight: 800;
     }
 
-    /* helper: visually hide scrollbar but still allow scroll (for nicer look) */
-    .no-scrollbar::-webkit-scrollbar { width: 8px; height:8px; }
-    .no-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius:8px; }
+    .section-title{
+      font-weight: 800;
+    }
 
-    /* small accessibility focus */
-    a:focus, button:focus { outline: 3px solid rgba(168,50,63,0.18); outline-offset:2px }
+    nav a{
+      font-weight: 600;
+    }
+
+    }
+
+    main.unlocked {
+      padding-top: 30px !important;
+    }
+    /* === SLIDE UP EFFECT FOR SECTIONS AFTER HERO === */
+    .content-section {
+      opacity: 0;
+      transform: translateY(120px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .content-section.slide-up {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero--slid {
+      transform: translateY(-60px);
+      transition: transform 600ms cubic-bezier(.2,.9,.26,1);
+    }
+
+    h1{
+      font-size: 64px;            /* sebelumnya 56px */
+    }
+
+    .lead{
+      font-size: 18px;            /* sebelumnya 14–16px */
+    }
+
+    .section-title{
+      font-size: 26px;            /* sebelumnya 20px */
+    }
+
+    .card{
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    nav a{
+      font-size: 16px;
+    }
+
+    .btn, .btn-primary, .btn-ghost{
+      font-size: 16px;
+    }
+
+    /* ===== JUSTIFY ALL PARAGRAPHS, LIST ITEMS, AND CONTENT TEXT ===== */
+
+    /* Paragraf umum */
+    p {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    /* Teks di dalam card */
+    .card p,
+    .card ul li {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    /* Lead paragraph di hero */
+    .lead {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    /* ========== SOCIAL ICON HOVER & PRESS ANIMATION ========== */
+    .seen-logos a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .18s ease, filter .18s ease;
+    }
+
+    .seen-logos a:hover {
+      transform: scale(1.18);
+      filter: drop-shadow(0 0 6px rgba(168, 50, 63, 0.4));
+    }
+
+    .seen-logos a:active {
+      transform: scale(0.88);
+      filter: drop-shadow(0 0 3px rgba(168, 50, 63, 0.2));
+    }
+
+
   </style>
 </head>
+
 <body class="locked-scroll">
 
+  <!-- HEADER -->
   <div class="header-wrap">
     <div class="header">
       <div class="brand">Ezza <span style="opacity:.95">Ezzata</span></div>
 
-      <nav id="mainNav" aria-hidden="true">
+      <!-- BURGER (mobile only) -->
+      <div class="burger" id="burgerBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- NAV LINKS -->
+      <nav id="mainNav">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#education">Education</a>
@@ -199,54 +479,84 @@
     </div>
   </div>
 
-  <main class="wrap locked no-scrollbar" id="mainRoot" tabindex="-1">
+
+  <!-- MAIN -->
+  <main class="wrap locked" id="top">
+
+    <!-- HERO WRAPPER + HERO -->
     <div class="hero-wrap">
       <section class="hero" id="home" aria-labelledby="hero-heading">
         <div class="hero-left">
           <div class="kicker">Hi, I am</div>
-          <h1 id="hero-heading"><span class="name">Ezza Ezzata</span></h1>
 
+          <h1 id="hero-heading"><span class="name">Ezza Ezzata</span></h1>
           <p class="lead">
             Bachelor’s degree in Informatics from Universitas Ahmad Dahlan. Experienced in programming, communication, and technical problem-solving, with skills in Python and backend development. Comfortable speaking in front of others, presenting ideas clearly, and leading discussions or teamwork. Currently focusing on strengthening technical capabilities and adapting to roles that require collaboration, analysis, and technology-based solutions.
           </p>
 
-          <div class="actions" id="heroActions" aria-hidden="false">
+          
+          <div class="actions" aria-hidden="false">
             <button class="btn btn-primary" id="readStory" aria-controls="about">Read My Full Story</button>
             <a class="btn btn-ghost" href="Files/CV_Ezza Ezzata.pdf" target="_blank" rel="noopener">Download CV</a>
 
-            <div class="seen-in reveal" style="margin-top:18px;">
-              <div class="seen-logos" aria-hidden="true">
+            <!-- SEEN IN (NOW UNDER BUTTONS) -->
+            <div class="seen-in reveal" style="margin-top:26px; width:100%; display:flex; flex-direction:column; gap:10px;">
+              <div class="seen-logos" aria-hidden="true" 
+                  style="display:flex;gap:18px;align-items:center;opacity:.85">
+
+                <!-- Instagram -->
                 <a href="https://instagram.com/ezzataa_" target="_blank" aria-label="Instagram">
-                  <!-- icon -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#a8323f" stroke-width="1.4"/><circle cx="12" cy="12" r="4" stroke="#a8323f" stroke-width="1.4"/><circle cx="17.2" cy="6.8" r="1.2" fill="#a8323f"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="#a8323f" stroke-width="1.6"/>
+                    <circle cx="12" cy="12" r="4.2" stroke="#a8323f" stroke-width="1.6"/>
+                    <circle cx="17.2" cy="6.8" r="1.4" fill="#a8323f"/>
+                  </svg>
                 </a>
 
+                <!-- WhatsApp -->
                 <a href="https://wa.me/62350128419" target="_blank" aria-label="WhatsApp">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#a8323f" stroke-width="1.4"/><path d="M16.1 13.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.9 1-.2.2-.4.2-.6.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5s.2-.3.3-.4c.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.2.1-.3 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.7 4.2 3.8 2.5 1.1 2.5.8 3 .7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2z" fill="#a8323f"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="#a8323f" stroke-width="1.6"/>
+                    <path 
+                      d="M16.1 13.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.9 1-.2.2-.4.2-.6.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5s.2-.3.3-.4c.1-.1.1-.2.2-.3.1-.1.1-.2.2-.3.1-.2.1-.3 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.7 4.2 3.8 2.5 1.1 2.5.8 3 .7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2z"
+                      fill="#a8323f"
+                    />
+                  </svg>
                 </a>
 
+
+                <!-- GitHub -->
                 <a href="https://github.com/ezza028" target="_blank" aria-label="GitHub">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2.3c-5.4 0-9.7 4.4-9.7 9.7a9.7 9.7 0 006.6 9.2c.5.1.6-.2.6-.4v-1.6c-2.7.6-3.3-1.2-3.3-1.2-.4-1-1-1.3-1-1.3-.8-.5.1-.5.1-.5 1 .1 1.5 1 1.5 1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.2-.3-4.5-1.1-4.5-5a3.8 3.8 0 011-2.6 3.5 3.5 0 01.1-2.6s.8-.3 2.7 1a9 9 0 015 0c1.8-1.3 2.7-1 2.7-1 .3.8.3 1.8.1 2.6a3.8 3.8 0 011 2.6c0 3.9-2.4 4.7-4.6 5 .4.3.8 1 .8 2v2.9c0 .2.1.6.6.4a9.7 9.7 0 006.6-9.2c0-5.4-4.4-9.7-9.7-9.7z" fill="#a8323f"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2.3c-5.4 0-9.7 4.4-9.7 9.7a9.7 9.7 0 006.6 9.2c.5.1.6-.2.6-.4v-1.6c-2.7.6-3.3-1.2-3.3-1.2-.4-1-1-1.3-1-1.3-.8-.5.1-.5.1-.5 1 .1 1.5 1 1.5 1 .9 1.5 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.4-2.2-.3-4.5-1.1-4.5-5a3.8 3.8 0 011-2.6 3.5 3.5 0 01.1-2.6s.8-.3 2.7 1a9 9 0 015 0c1.8-1.3 2.7-1 2.7-1 .3.8.3 1.8.1 2.6a3.8 3.8 0 011 2.6c0 3.9-2.4 4.7-4.6 5 .4.3.8 1 .8 2v2.9c0 .2.1.6.6.4a9.7 9.7 0 006.6-9.2c0-5.4-4.4-9.7-9.7-9.7z" fill="#a8323f"/>
+                  </svg>
                 </a>
 
+                <!-- Email -->
                 <a href="mailto:ezzaezzata8899@gmail.com" aria-label="Email">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.4" y="4" width="19.2" height="16" rx="2.6" stroke="#a8323f" stroke-width="1.4"/><path d="M3.6 6l8.4 6.2L20.4 6" stroke="#a8323f" stroke-width="1.4"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <rect x="2.4" y="4" width="19.2" height="16" rx="2.6" stroke="#a8323f" stroke-width="1.6"/>
+                    <path d="M3.6 6l8.4 6.2L20.4 6" stroke="#a8323f" stroke-width="1.6"/>
+                  </svg>
                 </a>
+
               </div>
             </div>
           </div>
+
+
         </div>
 
         <div class="hero-right">
           <div class="hero-card" role="img" aria-label="Hero image">
-            <!-- gunakan path file yang ada -->
-            <img src="/mnt/data/Ezza Ezzata — Portfolio (Dark Elegant) 2.png" alt="Ezza Ezzata — hero image">
+            <!-- use uploaded screenshot path present in conversation history -->
+            <img src="Asset/WhatsApp Image 2025-11-21 at 19.31.44.jpeg" alt="Ezza Ezzata — hero image">
           </div>
         </div>
       </section>
     </div>
 
-    <!-- ABOUT (hidden until read clicked) -->
+    <!-- ABOUT + BIODATA (hidden until Read Story clicked) -->
     <section id="about" class="content-section reveal" aria-labelledby="about-title">
       <div class="two-col">
         <div>
@@ -260,140 +570,292 @@
           </div>
         </div>
 
-        <aside class="card biodata-card" aria-label="Biodata">
-          <div class="bio-item"><div><span class="bio-key">Name</span><span class="bio-val">Ezza Ezzata</span></div></div>
-          <div class="bio-item"><div><span class="bio-key">From</span><span class="bio-val">Indonesia</span></div></div>
-          <div class="bio-item"><div><span class="bio-key">DOB</span><span class="bio-val">Sept 06, 2003</span></div></div>
-          <div class="bio-item"><div><span class="bio-key">Email</span><span class="bio-val">ezzaezzata8899@gmail.com</span></div></div>
-          <div class="bio-item"><div><span class="bio-key">Experience</span><span class="bio-val">&lt; 1 Year</span></div></div>
-          <div class="bio-item"><div><span class="bio-key">Availability</span><span class="bio-val">Full Time</span></div></div>
-        </aside>
+        <div>
+          <h2 class="section-title"></h2>
+          <aside class="card biodata-card" aria-label="Biodata">
+            <div class="bio-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4" stroke="#a8323f" stroke-width="1.6" fill="none"/><path d="M4 20c0-3.4 3.8-6 8-6s8 2.6 8 6" stroke="#a8323f" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg><div><span class="bio-key">Name</span><span class="bio-val">Ezza Ezzata</span></div></div>
+
+            <div class="bio-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 5.3 5 9.2c0 5.7 7 12.8 7 12.8s7-7.1 7-12.8C19 5.3 16 2 12 2z" stroke="#a8323f" stroke-width="1.4" fill="none"/><circle cx="12" cy="9" r="2.5" fill="#a8323f"/></svg><div><span class="bio-key">From</span><span class="bio-val">Indonesia</span></div></div>
+
+            <div class="bio-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3" stroke="#a8323f" stroke-width="1.6" fill="none"/><path d="M3 10h18" stroke="#a8323f" stroke-width="1.6"/></svg><div><span class="bio-key">Date of Birth</span><span class="bio-val">September 06, 2003</span></div></div>
+
+            <div class="bio-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2" stroke="#a8323f" stroke-width="1.6" fill="none"/><path d="M3.8 6.4l8.2 6 8.2-6" stroke="#a8323f" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg><div><span class="bio-key">Email</span><span class="bio-val">ezzaezzata8899@gmail.com</span></div></div>
+
+            <div class="bio-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="#a8323f" stroke-width="1.4" fill="none"/><circle cx="12" cy="18" r="1.4" fill="#a8323f"/></svg><div><span class="bio-key">Experience</span><span class="bio-val">&lt; 1 Year</span></div></div>
+
+            <div class="bio-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#a8323f" stroke-width="1.6" fill="none"/><path d="M12 7v6h5" stroke="#a8323f" stroke-width="1.6" stroke-linecap="round"/></svg><div><span class="bio-key">Availability</span><span class="bio-val">Full Time</span></div></div>
+          </aside>
+        </div>
       </div>
     </section>
 
-    <!-- rest sections (Education / Experience / Projects / Contact) -->
-    <!-- keeping markup minimal here since main task was hero/mobile locking + animations -->
+    <!-- EDUCATION -->
     <section id="education" class="content-section reveal" aria-labelledby="edu-title">
-      <h2 id="edu-title" class="section-title">Education</h2>
-      <div class="card">
-        <div class="micro">HIGHER EDUCATION</div>
-        <h3>Ahmad Dahlan University</h3>
-        <p><strong>Bachelor of Informatics</strong> — GPA: 3.56 / 4.00 (2021 — 2025)</p>
+      <div class="two-col">
+        <div>
+          <h2 id="edu-title" class="section-title">Education</h2>
+          <div class="card">
+            <div class="micro">HIGHER EDUCATION</div>
+            <h3>Ahmad Dahlan University</h3>
+            <p><strong>Bachelor of Informatics</strong> — GPA: 3.56 / 4.00</p>
+            <div style="color:var(--muted);margin-top:8px">2021 — 2025</div>
+            <div style="height:1px;background:rgba(255,255,255,0.04);margin:18px 0"></div>
+            <div class="micro">SCHOOL</div>
+            <h3>SMA Negeri 1 Batang Hari</h3>
+            <p><strong>Science Major (MIPA)</strong></p>
+            <div style="color:var(--muted);margin-top:8px">2018 — 2021</div>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="section-title">Internship</h2>
+          <div class="card">
+            <div class="micro">UI/UX INTERNSHIP</div>
+            <h3>UI/UX Designer — Teknologi Edukasi Indonesia (LuarSekolah)</h3>
+            <ul style="margin-top:10px; line-height:1.7">
+              <li>Designed fintech interfaces with clarity and usability.</li>
+              <li>Created wireframes, interactive prototypes, and user flows.</li>
+              <li>Improved UX consistency across screens by creating reusable components.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- EXPERIENCE -->
+    <section id="experience" class="content-section reveal" aria-labelledby="exp-title">
+      <h2 id="exp-title" class="section-title">My Future projects</h2>
+      <div class="two-col">
+        <div class="card">
+          <div class="micro">BACKEND</div>
+          <h3>Backend Developer — PT. Bintang Raihan Utara</h3>
+          <p style="line-height:1.7">Developed secure authentication services, including both login and registration features, ensuring reliable and safe access control.
+            Built multiple CRUD endpoints to support operational workflows and created partner data pipelines for smoother system integration.
+            Designed an efficient database schema to maintain stable, organized, and scalable system operations.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="micro">UI / UX INTERNSHIP</div>
+          <h3>UI/UX Designer — Teknologi Edukasi Indonesia (LuarSekolah)</h3>
+          <p style="line-height:1.7">Contributed to the design of financial technology (fintech) interfaces by prioritizing clarity, usability, and user-centered experience.
+            Created structured wireframes and interactive prototypes supporting transaction flows and improved design consistency across the platform.</p>
+        </div>
+
+        <div class="card">
+          <div class="micro">PERSONAL PROJECT</div>
+          <h3>Portfolio Website — Personal Brand Development</h3>
+          <p style="line-height:1.7">Developed a fully responsive personal portfolio site using HTML, CSS, and JavaScript. Built well-structured UI components, improved loading performance, and crafted a smooth, intuitive navigation experience to showcase projects and skills. Maintained clean, scalable code and ensured consistent display across various devices.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORGANIZATIONAL -->
+    <section id="projects" class="content-section reveal" aria-labelledby="org-title">
+      <h2 id="org-title" class="section-title">Organizational Experience</h2>
+      <div class="two-col">
+        <div class="card">
+          <div class="micro">HIMPUNAN MAHASISWA INFORMATIKA</div>
+          <h3>Staff of Advocacy & Strategic Studies Department</h3>
+          <div style="color:var(--muted);font-size:13px;margin:6px 0 10px;">2022 — 2023</div>
+          <ul style="margin-top:6px;line-height:1.6">
+            <li>Handled student concerns and academic-related issues within the Informatics department.</li>
+        <li>Provided insights and discussions on strategic topics to support organizational decision-making.</li>
+        <li>Collaborated with cross-department teams to execute advocacy programs.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="micro">HIMPUNAN MAHASISWA INFORMATIKA</div>
+          <h3>Chairperson of Informatics Student Association</h3>
+          <div style="color:var(--muted);font-size:13px;margin:6px 0 10px;">2023 — 2024</div>
+          <ul style="margin-top:6px;line-height:1.6">
+            <li>Led and coordinated organizational activities, ensuring smooth operations across departments.</li>
+            <li>Oversaw event planning, member development programs, and university collaborations.</li>
+            <li>Enhanced organization performance by strengthening teamwork and communication culture.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
     <section id="contact" class="content-section reveal" aria-labelledby="contact-title">
       <h2 id="contact-title" class="section-title">Contact</h2>
-      <div class="card">
-        <form action="https://formspree.io/f/xzzwelkb" method="POST" style="display:grid;gap:12px">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="email" name="email" placeholder="Your email" required>
-          <textarea name="message" rows="4" placeholder="Your message" required></textarea>
-          <button type="submit" class="btn btn-primary">Send Message</button>
+
+      <div class="card" style="
+            max-width:480px;
+            margin:auto;
+            padding:26px;
+            border-radius:16px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+            border:1px solid rgba(255,255,255,0.05);
+            box-shadow:0 10px 36px rgba(0,0,0,0.5);
+        ">
+
+        <form 
+          action="https://formspree.io/f/xzzwelkb"
+          method="POST"
+          style="display:grid;gap:18px;"
+        >
+
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Your name" 
+            required
+            style="
+              padding:14px;
+              font-size:16px;
+              border-radius:12px;
+              background:#161616;
+              border:1px solid rgba(255,255,255,0.07);
+              color:#fff;
+            "
+          />
+
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Your email" 
+            required
+            style="
+              padding:14px;
+              font-size:16px;
+              border-radius:12px;
+              background:#161616;
+              border:1px solid rgba(255,255,255,0.07);
+              color:#fff;
+            "
+          />
+
+          <textarea 
+            name="message" 
+            placeholder="Your message" 
+            rows="5"
+            required
+            style="
+              padding:14px;
+              font-size:16px;
+              border-radius:12px;
+              background:#161616;
+              border:1px solid rgba(255,255,255,0.07);
+              color:#fff;
+              resize:vertical;
+            "
+          ></textarea>
+
+          <button 
+            type="submit"
+            style="
+              margin-top:4px;
+              padding:14px;
+              font-size:16px;
+              font-weight:700;
+              border:none;
+              border-radius:12px;
+              cursor:pointer;
+              background:linear-gradient(90deg, var(--wine-light), var(--wine));
+              color:#fff;
+              box-shadow:0 12px 34px rgba(168,50,63,0.18);
+              transition:0.18s ease;
+            "
+          >
+            Send Message
+          </button>
+
         </form>
       </div>
     </section>
 
-    <footer>Thanks for visiting and happy coding!<br>© 2025 Ezza Ezzata — All rights reserved.</footer>
+
+    
+
+    <footer>Thanks for visiting and happy coding!<br>© 2025 Ezza Ezzata — All rights reserved.</footer></br></footer>
   </main>
 
-  <script>
-    // show initial fade
-    requestAnimationFrame(()=> document.body.style.opacity = 1);
+<script>
+  // initial fade-in
+  requestAnimationFrame(()=> document.body.style.opacity = 1);
 
-    // elements
-    const main = document.getElementById('mainRoot');
+  // smooth scroll with stronger upward offset
+  function scrollToIdWithOffset(id){
+    const el = document.querySelector(id);
+    if(!el) return;
+
+    const headerHeight = document.querySelector('.header')?.offsetHeight || 86;
+
+    // Scroll lebih ke atas → -95px (bisa diubah)
+    const top = el.offsetTop - headerHeight - 95;
+
+    window.scrollTo({
+      top,
+      behavior: 'smooth'
+    });
+  }
+
+  // small press animation
+  document.querySelectorAll('.btn, .btn-ghost, .card button[type="submit"]').forEach(btn=>{
+    btn.addEventListener('mousedown', ()=> btn.style.transform = 'scale(.98)');
+    btn.addEventListener('mouseup', ()=> btn.style.transform = '');
+    btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
+  });
+
+  // Read My Full Story — FAST slide + scroll + reveal
+  (function(){
     const readBtn = document.getElementById('readStory');
     const hero = document.querySelector('.hero');
-    const heroActions = document.getElementById('heroActions');
+    const main = document.querySelector('main');
     const nav = document.getElementById('mainNav');
-    let mobilePartialLock = false;
-    let maxAllowedScroll = 0;
 
-    // Utility: compute allowed mobile scroll so Read button is visible but not beyond
-    function computeAllowedMobileScroll(){
-      // distance from top of main to bottom of heroActions (so actions visible)
-      const mainRect = main.getBoundingClientRect();
-      const heroRect = hero.getBoundingClientRect();
-      const actionsRect = heroActions.getBoundingClientRect();
+    readBtn.addEventListener('click', function(){
+      readBtn.disabled = true;
 
-      // amount we can scroll inside main so that the bottom of viewport reveals actions.
-      // We want to allow scrolling until actions are at ~120px from top of viewport (so visible)
-      const viewportH = window.innerHeight;
-      // current hero total height relative to document
-      const heroHeight = hero.offsetHeight;
-      // maximum scrollTop inside main to reveal actions: heroHeight - viewportH + 140
-      const allowed = Math.max(0, heroHeight - viewportH + 140);
-      return allowed;
-    }
+      // Geser hero ke atas sedikit
+      hero.classList.add('hero--slid');
 
-    function enableMobilePartialLock(){
-      mobilePartialLock = true;
-      main.classList.add('locked'); // keep class for styling if any
-      main.style.overflowY = 'auto';
-      main.style.maxHeight = 'calc(100vh + 120px)';
-      main.scrollTop = 0;
-      maxAllowedScroll = computeAllowedMobileScroll();
-      // clamp initially
-      if(main.scrollTop > maxAllowedScroll) main.scrollTop = maxAllowedScroll;
-    }
-
-    function disableMobileLockCompletely(){
-      mobilePartialLock = false;
+      // Unlock page
       main.classList.remove('locked');
-      main.style.overflowY = '';
-      main.style.maxHeight = '';
       document.body.classList.remove('locked-scroll');
+      document.body.classList.add('page-visible');
       nav.classList.add('enabled');
       nav.setAttribute('aria-hidden','false');
 
-      // reveal sections with stagger
+      // Slide-up reveal untuk setiap section
       document.querySelectorAll('.content-section').forEach((sec, i) => {
-        setTimeout(()=> sec.classList.add('slide-up'), 120 + i * 90);
+        setTimeout(() => sec.classList.add('slide-up'), 120 + i * 90);
       });
-    }
 
-    // On load: if mobile width, enable partial lock that allows only limited scroll
-    function initMobileBehavior(){
-      if(window.innerWidth <= 620){
-        // allow small scroll so user can reach the Read button, but clamp
-        enableMobilePartialLock();
-
-        // intercept wheel/touchmove to clamp scrolling
-        main.addEventListener('scroll', () => {
-          if(!mobilePartialLock) return;
-          if(main.scrollTop > maxAllowedScroll){
-            main.scrollTop = maxAllowedScroll;
-          }
-        }, { passive: true });
-
-        // on orientation/resize, recompute allowed
-        window.addEventListener('resize', () => {
-          if(mobilePartialLock) maxAllowedScroll = computeAllowedMobileScroll();
-        });
-      } else {
-        // non-mobile: allow usual behavior but keep page initially locked (hidden sections)
-        nav.classList.add('enabled');
-        nav.setAttribute('aria-hidden','false');
-      }
-    }
-
-    // Read button behavior: slide hero up, unlock everything
-    readBtn.addEventListener('click', function(){
-      readBtn.disabled = true;
-      hero.classList.add('hero--slid');
-
-      // small timeout to allow slide animation
+      // Scroll sedikit supaya about mulai kelihatan
       setTimeout(() => {
-        disableMobileLockCompletely();
-        // nice scroll so About is visible
-        const top = hero.offsetHeight - 120;
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({
+          top: hero.offsetHeight - 160,
+          behavior: "smooth"
+        });
         readBtn.disabled = false;
-      }, 260);
+      }, 350);
     });
 
-    // Intersection reveal observer for little fade-ins
+  })();
+
+      // MOBILE BURGER MENU
+    const burger = document.getElementById("burgerBtn");
+    const nav = document.getElementById("mainNav");
+
+    burger.addEventListener("click", () => {
+      burger.classList.toggle("open");
+      nav.classList.toggle("open");
+    });
+
+    // Auto-close after clicking a link
+    document.querySelectorAll("#mainNav a").forEach(link => {
+      link.addEventListener("click", () => {
+        burger.classList.remove("open");
+        nav.classList.remove("open");
+      });
+    });
+
+
+    // Reveal observer
     const revealObserver = new IntersectionObserver((entries)=>{
       entries.forEach(ent=>{
         if(ent.isIntersecting) ent.target.classList.add('visible');
@@ -402,22 +864,27 @@
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Init
-    document.addEventListener('DOMContentLoaded', () => {
-      initMobileBehavior();
+    // contact form demo
+    function onContactSubmit(){
+      const btn = document.querySelector('#contactForm button');
+      const orig = btn.innerText;
+      btn.disabled = true;
+      btn.innerText = 'Sending...';
+      setTimeout(()=>{
+        alert('Message sent — demo only.');
+        btn.disabled = false;
+        btn.innerText = orig;
+        document.getElementById('contactForm').reset();
+      }, 900);
+    }
 
-      // ensure hero image visible smoothly
+    document.addEventListener('DOMContentLoaded', ()=>{
       const img = document.querySelector('.hero-card img');
       if(img && !img.complete){
-        img.style.opacity = 0;
-        img.addEventListener('load', ()=> img.style.opacity = 1);
+        img.addEventListener('load', ()=> img.style.opacity = '1');
       }
     });
-
-    // Accessibility: allow keyboard to focus main
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Tab') main.setAttribute('tabindex','-1');
-    });
   </script>
+
 </body>
 </html>
