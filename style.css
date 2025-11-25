@@ -312,7 +312,7 @@
     /* Input & Textarea lebih besar dan lebih nyaman di mobile */
     #contact input,
     #contact textarea {
-      font-size: 16px;        /* perbesar tulisan */
+      font-size: 12px;        /* perbesar tulisan */
       padding: 14px;          /* lebih lega */
       border-radius: 12px;
     }
