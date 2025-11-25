@@ -350,9 +350,6 @@
 
       }
 
-    main.unlocked {
-      padding-top: 30px !important;
-    }
     /* === SLIDE UP EFFECT FOR SECTIONS AFTER HERO === */
     .content-section {
       opacity: 0;
