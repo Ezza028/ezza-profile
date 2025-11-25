@@ -8,7 +8,7 @@
       --wine-light:#be0b20;
       --accent:#a8323f;
       --max-width:1200px;
-      --header-height:30px;
+      --header-height:63px;
       --hero-slide-duration:600ms; /* FAST slide */
        font-family: 'Montserrat', system-ui, sans-serif;
       --base-font: 20px;
@@ -142,7 +142,7 @@
     }
 
     main.locked {
-      height: 105vh;
+      height: 88vh;
       overflow: hidden;
     }
 
@@ -206,7 +206,7 @@
 
     .hero{
       display:grid; grid-template-columns:1fr 520px; gap:48px; align-items:center; padding:28px 8px; border-radius:12px;
-      min-height:calc(100vh - 160px);
+      min-height:calc(120vh - 160px);
       background:transparent;
       transition: transform var(--hero-slide-duration) cubic-bezier(.2,.9,.26,1), opacity calc(var(--hero-slide-duration) / 1.6) ease;
       will-change: transform, opacity;
@@ -528,5 +528,3 @@
         border-radius: 14px;
       }
     }
-
-   
