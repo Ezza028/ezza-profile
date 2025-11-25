@@ -449,13 +449,18 @@
       
       /* Heading utama */
       h1 {
-        font-size: 28px !important;
+        font-size: 15px !important;
         line-height: 1.15;
       }
 
       /* Subheading section */
       .section-title {
         font-size: 20px !important;
+      }
+
+      h3 {
+        font-size: 10px !important;
+        line-height: 1.15;
       }
 
       /* Lead paragraf di hero */
@@ -524,31 +529,4 @@
       }
     }
 
-    /* ===== FIX SPASI ATAS MOBILE ===== */
-    @media (max-width: 520px) {
-    
-      /* Header lebih rapat ke atas */
-      .header-wrap {
-        top: 0 !important;
-      }
-    
-      .header {
-        margin: 6px !important;
-        padding: 6px 10px !important;
-      }
-    
-      /* Section pertama jangan turun jauh */
-      .wrap {
-        margin-top: 25px !important;   /* sebelumnya ±90px */
-      }
-    
-      /* Hero tidak perlu min-height tinggi */
-      .hero {
-        min-height: auto !important;
-        padding-top: 10px !important;
-      }
-    
-      .hero-right {
-        padding-top: 10px !important;
-      }
-    }
+   
