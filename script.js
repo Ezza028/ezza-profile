@@ -24,42 +24,6 @@
     btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
   });
 
-  // Read My Full Story — FAST slide + scroll + reveal
-  (function(){
-    const readBtn = document.getElementById('readStory');
-    const hero = document.querySelector('.hero');
-    const main = document.querySelector('main');
-    const nav = document.getElementById('mainNav');
-
-    readBtn.addEventListener('click', function(){
-      readBtn.disabled = true;
-
-      // Geser hero ke atas sedikit
-      hero.classList.add('hero--slid');
-
-      // Unlock page
-      main.classList.remove('locked');
-      document.body.classList.remove('locked-scroll');
-      document.body.classList.add('page-visible');
-      nav.classList.add('enabled');
-      nav.setAttribute('aria-hidden','false');
-
-      // Slide-up reveal untuk setiap section
-      document.querySelectorAll('.content-section').forEach((sec, i) => {
-        setTimeout(() => sec.classList.add('slide-up'), 120 + i * 90);
-      });
-
-      // Scroll sedikit supaya about mulai kelihatan
-      setTimeout(() => {
-        window.scrollTo({
-          top: hero.offsetHeight - 120,
-          behavior: "smooth"
-        });
-        readBtn.disabled = false;
-      }, 350);
-    });
-
-  })();
 
       // MOBILE BURGER MENU
     const burger = document.getElementById("burgerBtn");
