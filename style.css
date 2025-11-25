@@ -507,4 +507,49 @@
       }
     }
 
-   
+    /* ===== MOBILE LANDSCAPE ===== */
+      @media (min-width: 521px) and (max-width: 767px) and (orientation: landscape) {
+        h1 { font-size: 22px; line-height: 1.2; }
+        .section-title { font-size: 24px; }
+        h3 { font-size: 14px; }
+        .lead { font-size: 16px; line-height: 1.7; }
+        p { font-size: 15px; }
+        .card { font-size: 15px; line-height: 1.65; }
+        nav a { font-size: 15px; }
+        .btn, .btn-primary, .btn-ghost { font-size: 15px; padding: 10px 16px; }
+    
+        .hero-right { height: 60% !important; }
+        .hero-card { width: 60vw !important; height: 60vw !important; max-width: 320px; max-height: 320px; }
+      }
+    
+      /* ===== TABLET PORTRAIT ===== */
+      @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+        h1 { font-size: 28px; }
+        .section-title { font-size: 26px; }
+        h3 { font-size: 16px; }
+        .lead { font-size: 17px; }
+        p { font-size: 16px; }
+        .card { font-size: 16px; line-height: 1.7; }
+        nav a { font-size: 15px; }
+        .btn, .btn-primary, .btn-ghost { font-size: 15px; padding: 12px 18px; }
+    
+        .hero-right { height: 70%; }
+        .hero-card { width: 50vw; height: 50vw; max-width: 360px; max-height: 360px; }
+      }
+    
+      /* ===== TABLET LANDSCAPE ===== */
+      @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+        h1 { font-size: 32px; }
+        .section-title { font-size: 28px; }
+        h3 { font-size: 18px; }
+        .lead { font-size: 18px; }
+        p { font-size: 17px; }
+        .card { font-size: 17px; line-height: 1.75; }
+        nav a { font-size: 16px; }
+        .btn, .btn-primary, .btn-ghost { font-size: 16px; padding: 12px 18px; }
+    
+        .hero-right { height: 75%; }
+        .hero-card { width: 45vw; height: 45vw; max-width: 380px; max-height: 380px; }
+      }
+    
+       
