@@ -539,7 +539,7 @@
     
       /* Section pertama jangan turun jauh */
       .wrap {
-        margin-top: 40px !important;   /* sebelumnya ±90px */
+        margin-top: 25px !important;   /* sebelumnya ±90px */
       }
     
       /* Hero tidak perlu min-height tinggi */
