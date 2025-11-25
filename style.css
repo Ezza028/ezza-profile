@@ -205,8 +205,8 @@
     }
 
     .hero{
-      display:grid; grid-template-columns:1fr 520px; gap:48px; align-items:center; padding:28px 8px; border-radius:12px;
-      min-height:calc(120vh - 160px);
+      display:grid; grid-template-columns:1fr 520px; gap:40px; align-items:center; padding:28px 8px; border-radius:10px;
+      min-height:calc(112vh - 15vh);
       background:transparent;
       transition: transform var(--hero-slide-duration) cubic-bezier(.2,.9,.26,1), opacity calc(var(--hero-slide-duration) / 1.6) ease;
       will-change: transform, opacity;
@@ -341,7 +341,7 @@
       nav{ gap:8px }
       .brand{ font-size:16px }
       .wrap{ padding:16px; margin-top:calc(var(--header-height) + 40px) }
-      .hero{ grid-template-columns:1fr; gap:20px; min-height:auto }
+      .hero{ grid-template-columns:1fr; gap:100px; min-height:auto }
       .hero-right{ height:320px }
       .hero-card{ height:320px; border-radius:14px }
       h1{ font-size:28px }
