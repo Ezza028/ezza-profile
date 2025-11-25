@@ -192,7 +192,7 @@
 
     .hero{
       display:grid; grid-template-columns:1fr 520px; gap:40px; align-items:center; padding:28px 8px; border-radius:10px;
-      min-height:calc(112vh - 15vh);
+      min-height:calc(100vh - 160vh);
       background:transparent;
       transition: transform var(--hero-slide-duration) cubic-bezier(.2,.9,.26,1), opacity calc(var(--hero-slide-duration) / 1.6) ease;
       will-change: transform, opacity;
